@@ -118,14 +118,24 @@ def write_vtk(file_name:str,**content):
         print('No face data is given')
         
 def write_line_vtk(file_name:str,**content):
-    writer = vtk.vtkXMLDataSetWriter()
-    try:
-        u2=__MakeMultiLine(content['point'],content['line'])
-        writer.SetInputData(u2)
-        writer.SetFileName(file_name+'.line.vtu')
-        writer.Write()
-    except:
-        print('No line data is given')
+    max_node_index1=len(content['point'])
+    max_node_index2=np.array(content['line']).max()
+    min_node_index2=np.array(content['line']).min()
+    if min_node_index2 <0:
+        print(min_node_index2)
+        exit
+    if max_node_index2>max_node_index1:
+        print(max_node_index1,max_node_index2)
+        exit
+    else:
+        writer = vtk.vtkXMLDataSetWriter()
+        try:
+            u2=__MakeMultiLine(content['point'],content['line'])
+            writer.SetInputData(u2)
+            writer.SetFileName(file_name+'.line.vtu')
+            writer.Write()
+        except:
+            print('No line data is given')
         
 def write_point_vtk(file_name:str,node_position:list):
     writer = vtk.vtkXMLDataSetWriter()
