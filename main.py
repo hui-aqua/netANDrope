@@ -34,7 +34,7 @@ fixed_point=geo.fixed_node
 
 for i in range(int(run_time/dt)):       
     if i % round(float(0.04)/float(dt)) == 0:                # Write vtk result per 0.04s, 25fps
-        sv.write_vtk("net",point=position.tolist(),line=geo.twine,face=geo.net)
+        sv.write_vtk("ami2/net"+str(i),point=position.tolist(),line=geo.twine,face=geo.net)
 
     ### Forward Euler (Explicit)
     ## External loads
